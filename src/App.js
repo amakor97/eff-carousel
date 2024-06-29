@@ -6,44 +6,41 @@ import usePics from "./usePics.js";
 
 import Carousel from "./Carousel.js";
 
+
 function App() {
+  const defPics = usePics().pics;
   const rawPics = usePics().pics;
   const pics = useRef(rawPics); 
 
-  pics.current = localStorage.getItem("pics") ? JSON.parse(localStorage.getItem("pics")) : rawPics;
+console.log(localStorage.getItem("pics").length);
+  console.log(localStorage.getItem("pics"));
+  console.log(localStorage.getItem("pics").length === 2);
+  pics.current = (localStorage.getItem("pics").length !== 2) ? JSON.parse(localStorage.getItem("pics")) : rawPics;
 
   let newPics = useRef([]);
 
-  //newPics.current = localStorage.getItem("pics") ? JSON.parse(localStorage.getItem("pics")) : pics.current;
+  //newPics.current = (localStorage.getItem("pics").length !== 0) ? JSON.parse(localStorage.getItem("pics")) : pics.current;
 
   useEffect(() => {
     window.addEventListener("beforeunload", () => {
+      console.log(newPics.current);
       localStorage.setItem("pics", JSON.stringify(newPics.current));
     });
   }, [])
 
 
   function handlePicsOrder(num) {
-    newPics.current = [];
-
-
-    console.log(pics.current[num]);
-
     let pic = pics.current[num];
+    console.log("id to first: ", pic.id);
 
-    newPics.current.push(pic);
+    console.log(defPics);
+    newPics.current = JSON.parse(JSON.stringify(defPics));
+    newPics.current = newPics.current.filter(iterablePic => iterablePic.id !== pic.id);
+    //newPics.current.splice(num, 1);
+    newPics.current.unshift(pic);
 
-    console.log("n", newPics.current);
 
-    console.log(pics);
-
-    pics.current.forEach(pic => {
-      console.log(pic);
-      console.log(pic.id === newPics.current[0].id);
-      if (pic.id !== newPics.current[0].id) {
-        newPics.current.push(pic);
-      }
-    })
+    console.log("c", newPics.current);
   }
 
 
