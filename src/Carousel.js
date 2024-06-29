@@ -4,12 +4,11 @@ import Pic from "./Pic.js";
 import Btn from "./Btn.js";
 import { useState, useRef, useEffect } from "react";
 
-export default function Carousel({picsList}) {
-  console.log(picsList);
+export default function Carousel({picsList, onChangePicsOrder}) {
+  console.log("current list ", picsList);
 
   const [currentSlide, setCurrentSlide] = useState(undefined);
 
-  console.log(currentSlide);
 
   function handleMoveCarousel(dir) {
     if (dir === "left") {
@@ -26,8 +25,7 @@ export default function Carousel({picsList}) {
   }
 
   function handleSelectPic(e) {
-    console.log(e);
-    console.log(currentSlide);
+    onChangePicsOrder(currentSlide);
   }
 
   const carRef = useRef();
@@ -36,7 +34,7 @@ export default function Carousel({picsList}) {
   useEffect(() => {
     if (picsList) {
       setCurrentSlide(0);
-      //carInnerRef.current.style.width = "4px"; 
+      carInnerRef.current.style.width = `${picsList.length*200}px`; 
     }
   }, [])
 
