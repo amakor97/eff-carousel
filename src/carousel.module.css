@@ -1,12 +1,17 @@
 .wrapper {
-  width: 200px;
+  width: 400px;
+  margin-bottom: 16px;
   overflow: hidden;
 }
 
 .inner {
-  width: 800px;
-  height: 300px;
-  overflow-x: visible;
+  width: 400px;
+  height: 600px;
 
   transition: transform 0.2s;
+}
+
+.ctrlCont {
+  display: flex;
+  justify-content: space-between;
 }

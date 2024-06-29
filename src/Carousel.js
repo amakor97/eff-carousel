@@ -1,14 +1,25 @@
 import carousel from "./carousel.module.css";
 
-import Pic from "./Pic.js";
-import Btn from "./Btn.js";
 import { useState, useRef, useEffect } from "react";
 
+import Pic from "./Pic.js";
+import Btn from "./Btn.js";
+
 export default function Carousel({picsList, onChangePicsOrder}) {
-  console.log("current list ", picsList);
-
   const [currentSlide, setCurrentSlide] = useState(undefined);
+  const carInnerRef = useRef();
 
+  useEffect(() => {
+    if (picsList) {
+      setCurrentSlide(0);
+      carInnerRef.current.style.width = `${picsList.length*400}px`; 
+    }
+  }, [])
+
+
+  useEffect(() => {
+    carInnerRef.current.style.transform = `translateX(${-currentSlide*400}px)`;
+  })
 
   function handleMoveCarousel(dir) {
     if (dir === "left") {
@@ -24,29 +35,13 @@ export default function Carousel({picsList, onChangePicsOrder}) {
     }
   }
 
-  function handleSelectPic(e) {
+  function handleSelectPic() {
     onChangePicsOrder(currentSlide);
   }
 
-  const carRef = useRef();
-  const carInnerRef = useRef();
-
-  useEffect(() => {
-    if (picsList) {
-      setCurrentSlide(0);
-      carInnerRef.current.style.width = `${picsList.length*200}px`; 
-    }
-  }, [])
-
-
-  useEffect(() => {
-    carInnerRef.current.style.transform = `translateX(${-currentSlide*200}px)`;
-  })
-
-
 
   return (
-    <>
+    <div>
       <div className={carousel.wrapper}>
         <div ref={carInnerRef} className={carousel.inner}>
           {
@@ -54,10 +49,10 @@ export default function Carousel({picsList, onChangePicsOrder}) {
           }
         </div>
       </div>
-      <div>
+      <div className={carousel.ctrlCont}>
         <Btn text={"<-"} onEventHandler={() => handleMoveCarousel("left")}/>
         <Btn text={"->"} onEventHandler={() => handleMoveCarousel("right")}/>
       </div>
-    </>
+    </div>
   );
 }
