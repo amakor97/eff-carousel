@@ -1,0 +1,12 @@
+.wrapper {
+  width: 200px;
+  overflow: hidden;
+}
+
+.inner {
+  width: 800px;
+  height: 300px;
+  overflow-x: visible;
+
+  transition: transform 0.2s;
+}
