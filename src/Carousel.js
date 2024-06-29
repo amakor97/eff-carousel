@@ -25,7 +25,6 @@ export default function Carousel({picsList, onChangePicsOrder}) {
     if (dir === "left") {
       if (currentSlide > 0) {
         setCurrentSlide(value => value-1);
-
       }
     }
     if (dir === "right") {
