@@ -44,7 +44,7 @@ export default function Carousel({picsList, onChangePicsOrder}) {
       <div className={carousel.wrapper}>
         <div ref={carInnerRef} className={carousel.inner}>
           {
-            picsList.map(pic => <Pic picData={pic} onPicSelect={handleSelectPic}/>)
+            picsList.map(pic => <Pic key={pic.id} picData={pic} onPicSelect={handleSelectPic}/>)
           }
         </div>
       </div>
